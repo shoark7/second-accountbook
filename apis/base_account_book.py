@@ -37,3 +37,7 @@ class BaseAccountBook(object):
     def update_data(self):
         """Update data for any reasons"""
         raise NotImplementedError()
+
+    def get_dict(self):
+        """Get dict version for serialization"""
+        raise NotImplementedError()
