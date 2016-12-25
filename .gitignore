@@ -202,3 +202,5 @@ tags
 *.orig
 
 # End of https://www.gitignore.io/api/py,pycharm,python,vim,intellij,github
+# Dataset section
+dataset/
