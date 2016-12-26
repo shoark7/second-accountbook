@@ -37,7 +37,6 @@ class DailyAccountBook(BaseAccountBook):
         self.month = month
         self.day = day
         self.weekday = get_weekday(self.year, self.month, self.day)
-        self.get_dict()
         self.read_data()
 
     def read_data(self):
@@ -46,7 +45,9 @@ class DailyAccountBook(BaseAccountBook):
         if os.path.exists(path):
             with open(path, 'r') as fp:
                 self.data = json.load(fp,)
-            return None
+        else:
+            self.get_dict()
+
 
     def save_data(self):
         """Save data into dataset json files"""
@@ -115,6 +116,7 @@ class DailyAccountBook(BaseAccountBook):
         money_records = [record['money'] for record in self.data['records']]
         max_length_staticstics = max_expenditure_length([total, average])
         max_length_entry = max_expenditure_length(money_records)
+        max_length_line = len(str(self.data['count']))
 
         print()
         print('    {year}년 {month}월 {day}일 {weekday}요일 : 총 {count}건'.format(
@@ -129,8 +131,10 @@ class DailyAccountBook(BaseAccountBook):
         print(' 평  균 : {:>{},}원'.format(average, max_length_staticstics))
         print('-' * 40)
 
-        for record in self.data['records']:
-            print(' 지 출  : {money:>{length},}원, 사유 : {reason}'.format(
+        for i, record in enumerate(self.data['records']):
+            print(' {line:^{line_length}} |  지 출  : {money:>{length},}원, 사유 : {reason}'.format(
+                    line=i+1,
+                    line_length=max_length_line,
                     money=record['money'],
                     length=max_length_entry,
                     reason=record['reason']
