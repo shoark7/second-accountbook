@@ -21,16 +21,23 @@ def get_weekday():
     return WEEKDAY[TODAY.weekday()]
 
 
-def read_day_file(year=YEAR, month=MONTH, day=DAY):
+def get_path_day(year, month, day):
     path = os.path.join('./dataset/{year}/{month:02}/{day:02}.json'.format(
-        year=YEAR,
-        month=MONTH,
-        day=DAY))
+    year=YEAR,
+    month=MONTH,
+    day=DAY))
+    return path
 
-    if os.path.exists(path):
-        with open(path, 'r') as fp:
-            result = json.load(fp)
-        return result
-    else:
-        print('해당 날짜의 파일이 없습니다.')
-        return
+
+def get_path_month(year, month):
+    path = os.path.join('./dataset/{year}/{month:02}'.format(
+                year=YEAR,
+                month=MONTH,
+        ))
+    return path
+
+
+def get_path_year(year):
+    path = os.path.join('./dataset/{year}'.format(year=YEAR))
+    return path
+
