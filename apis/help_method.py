@@ -5,7 +5,6 @@ It's simple.
 """
 
 from datetime import datetime
-import json
 import os
 
 TODAY = datetime.today()
@@ -23,9 +22,10 @@ def get_weekday():
 
 def get_path_day(year, month, day):
     path = os.path.join('./dataset/{year}/{month:02}/{day:02}.json'.format(
-    year=YEAR,
-    month=MONTH,
-    day=DAY))
+        year=YEAR,
+        month=MONTH,
+        day=DAY)
+    )
     return path
 
 
@@ -41,3 +41,6 @@ def get_path_year(year):
     path = os.path.join('./dataset/{year}'.format(year=YEAR))
     return path
 
+
+def max_expenditure_length(wanted_list):
+    return len('{}'.format(max(wanted_list))) + 1
