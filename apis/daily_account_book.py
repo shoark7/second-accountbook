@@ -14,14 +14,14 @@ Year
         day
 
 Tree will be like this.
-
 """
 
 from datetime import datetime
 import json
 import os
 from .base_account_book import BaseAccountBook
-from .help_method import get_weekday, get_path_day, get_path_month, get_path_year
+from .help_method import get_weekday, get_path_day, get_path_month,\
+        get_path_year, max_expenditure_length
 from .record import Record
 
 TODAY = datetime.today()
@@ -67,7 +67,12 @@ class DailyAccountBook(BaseAccountBook):
 
     def average_data(self):
         """Average data depending on type of the book"""
-        raise NotImplementedError()
+        average = 0
+        total_sum = 0
+        for record in self.data['records']:
+            total_sum += record['money']
+        average = total_sum // self.data['count']
+        return total_sum, average
 
     def add_data(self, money, reason=None):
         """Add a new data entry into the book"""
@@ -95,3 +100,35 @@ class DailyAccountBook(BaseAccountBook):
         self.data['count'] = 0
         return None
 
+    def print_daily_expenditure(self):
+        """Shows daily expenditure overview.
+
+        1. Simple statistics : sum and average
+        2. print every single record.
+        """
+
+        total, average = self.average_data()
+        money_records = [record['money'] for record in self.data['records']]
+        max_length_staticstics = max_expenditure_length([total, average])
+        max_length_entry = max_expenditure_length(money_records)
+
+        print()
+        print('    {year}년 {month}월 {day}일 {weekday}요일 : 총 {count}건'.format(
+                year=self.year,
+                month=self.month,
+                day=self.day,
+                count=self.data['count'],
+                weekday=self.weekday
+        ))
+        print('-' * 40)
+        print('총 지출 : {:>{},}원'.format(total, max_length_staticstics))
+        print(' 평  균 : {:>{},}원'.format(average, max_length_staticstics))
+        print('-' * 40)
+
+        for record in self.data['records']:
+            print(' 지 출  : {money:>{length},}원, 사유 : {reason}'.format(
+                    money=record['money'],
+                    length=max_length_entry,
+                    reason=record['reason']
+            ))
+        print()
