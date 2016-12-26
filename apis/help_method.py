@@ -4,7 +4,7 @@ It's simple.
 
 """
 
-from datetime import datetime
+from datetime import datetime, date
 import os
 
 TODAY = datetime.today()
@@ -13,18 +13,19 @@ MONTH = TODAY.month
 DAY = TODAY.day
 
 
-def get_weekday():
+def get_weekday(year=YEAR, month=MONTH, day=DAY):
     """Use datetime.today to get weekday in Korean."""
     WEEKDAY = ['월', '화', '수', '목', '금', '토', '일']
+    DATE = date(year, month, day)
 
-    return WEEKDAY[TODAY.weekday()]
+    return WEEKDAY[DATE.weekday()]
 
 
 def get_path_day(year, month, day):
     path = os.path.join('./dataset/{year}/{month:02}/{day:02}.json'.format(
-        year=YEAR,
-        month=MONTH,
-        day=DAY)
+        year=year,
+        month=month,
+        day=day)
     )
     return path
 

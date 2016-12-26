@@ -33,10 +33,10 @@ class DailyAccountBook(BaseAccountBook):
                  year=TODAY.year,
                  month=TODAY.month,
                  day=TODAY.day):
-        self.weekday = get_weekday()
         self.year = year
         self.month = month
         self.day = day
+        self.weekday = get_weekday(self.year, self.month, self.day)
         self.get_dict()
         self.read_data()
 
@@ -71,7 +71,7 @@ class DailyAccountBook(BaseAccountBook):
         total_sum = 0
         for record in self.data['records']:
             total_sum += record['money']
-        average = total_sum // self.data['count']
+            average = total_sum // self.data['count']
         return total_sum, average
 
     def add_data(self, money, reason=None):
@@ -106,6 +106,10 @@ class DailyAccountBook(BaseAccountBook):
         1. Simple statistics : sum and average
         2. print every single record.
         """
+
+        if self.data['count'] is 0:
+            print('이 날은 지출내역이 없습니다.')
+            return
 
         total, average = self.average_data()
         money_records = [record['money'] for record in self.data['records']]
