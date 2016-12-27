@@ -18,24 +18,8 @@ class BaseAccountBook(object):
         """Read data from dataset json files"""
         raise NotImplementedError()
 
-    def save_data(self):
-        """Save data into dataset json files"""
-        raise NotImplementedError()
-
     def average_data(self):
         """Average data depending on type of the book"""
-        raise NotImplementedError()
-
-    def add_data(self):
-        """Add a new data entry into the book"""
-        raise NotImplementedError()
-
-    def remove_data(self):
-        """Remove data from the book"""
-        raise NotImplementedError()
-
-    def update_data(self):
-        """Update data for any reasons"""
         raise NotImplementedError()
 
     def get_dict(self):
