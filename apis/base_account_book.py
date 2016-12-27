@@ -21,7 +21,3 @@ class BaseAccountBook(object):
     def average_data(self):
         """Average data depending on type of the book"""
         raise NotImplementedError()
-
-    def get_dict(self):
-        """Get dict version for serialization"""
-        raise NotImplementedError()
