@@ -56,4 +56,4 @@ def get_path_year(year=YEAR):
 
 
 def max_expenditure_length(wanted_list):
-    return len('{}'.format(max(wanted_list))) + 1
+    return len('{:,}'.format(max(wanted_list))) + 1
