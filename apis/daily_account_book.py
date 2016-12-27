@@ -37,7 +37,14 @@ class DailyAccountBook(BaseAccountBook):
         self.month = month
         self.day = day
         self.weekday = get_weekday(self.year, self.month, self.day)
+        self.data = dict()
         self.read_data()
+        self.count = len(self.data['records'])
+
+    def __repr__(self):
+        return '{}/{}/{} 지출내역'.format(
+            self.year, self.month, self.day
+        )
 
     def read_data(self):
         """Read data from dataset json files"""
@@ -47,7 +54,6 @@ class DailyAccountBook(BaseAccountBook):
                 self.data = json.load(fp,)
         else:
             self.get_dict()
-
 
     def save_data(self):
         """Save data into dataset json files"""
@@ -72,13 +78,13 @@ class DailyAccountBook(BaseAccountBook):
         total_sum = 0
         for record in self.data['records']:
             total_sum += record['money']
-            average = total_sum // self.data['count']
+            average = total_sum // self.count
         return total_sum, average
 
     def add_data(self, money, reason=None):
         """Add a new data entry into the book"""
         new_record = Record(money, reason)
-        self.data['count'] += 1
+        self.count += 1
         self.data['records'].append(new_record.get_dict())
         return None
 
@@ -93,22 +99,19 @@ class DailyAccountBook(BaseAccountBook):
     def get_dict(self):
         """Get dict version for first serialization"""
         self.data = dict()
-        self.data['weekday'] = self.weekday
-        self.data['year'] = self.year
-        self.data['month'] = self.month
         self.data['day'] = self.day
         self.data['records'] = []
-        self.data['count'] = 0
         return None
 
     def print_daily_expenditure(self):
+
         """Shows daily expenditure overview.
 
         1. Simple statistics : sum and average
         2. print every single record.
         """
 
-        if self.data['count'] is 0:
+        if self.count is 0:
             print('이 날은 지출내역이 없습니다.')
             return
 
@@ -116,14 +119,14 @@ class DailyAccountBook(BaseAccountBook):
         money_records = [record['money'] for record in self.data['records']]
         max_length_staticstics = max_expenditure_length([total, average])
         max_length_entry = max_expenditure_length(money_records)
-        max_length_line = len(str(self.data['count']))
+        max_length_line = len(str(self.count))
 
         print()
         print('    {year}년 {month}월 {day}일 {weekday}요일 : 총 {count}건'.format(
                 year=self.year,
                 month=self.month,
                 day=self.day,
-                count=self.data['count'],
+                count=self.count,
                 weekday=self.weekday
         ))
         print('-' * 40)
