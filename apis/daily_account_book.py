@@ -39,7 +39,8 @@ class DailyAccountBook(BaseAccountBook):
         self.weekday = get_weekday(self.year, self.month, self.day)
         self.data = dict()
         self.read_data()
-        self.count = len(self.data['records'])
+        self.entry_count = len(self.data['records'])
+        self.average_data()
 
     def __repr__(self):
         return '{}/{}/{} 지출내역'.format(
@@ -74,17 +75,16 @@ class DailyAccountBook(BaseAccountBook):
 
     def average_data(self):
         """Average data depending on type of the book"""
-        average = 0
-        total_sum = 0
+        self.average = 0
+        self.total_sum = 0
         for record in self.data['records']:
-            total_sum += record['money']
-            average = total_sum // self.count
-        return total_sum, average
+            self.total_sum += record['money']
+        self.average = self.total_sum // self.entry_count
 
     def add_data(self, money, reason=None):
         """Add a new data entry into the book"""
         new_record = Record(money, reason)
-        self.count += 1
+        self.entry_count += 1
         self.data['records'].append(new_record.get_dict())
         return None
 
@@ -103,7 +103,7 @@ class DailyAccountBook(BaseAccountBook):
         self.data['records'] = []
         return None
 
-    def print_daily_expenditure(self):
+    def day_statistic(self):
 
         """Shows daily expenditure overview.
 
@@ -111,31 +111,30 @@ class DailyAccountBook(BaseAccountBook):
         2. print every single record.
         """
 
-        if self.count is 0:
+        if self.entry_count is 0:
             print('이 날은 지출내역이 없습니다.')
             return
 
-        total, average = self.average_data()
         money_records = [record['money'] for record in self.data['records']]
-        max_length_staticstics = max_expenditure_length([total, average])
+        max_length_staticstics = max_expenditure_length([self.total_sum, self.average])
         max_length_entry = max_expenditure_length(money_records)
-        max_length_line = len(str(self.count))
+        max_length_line = len(str(self.entry_count))
 
         print()
         print('    {year}년 {month}월 {day}일 {weekday}요일 : 총 {count}건'.format(
                 year=self.year,
                 month=self.month,
                 day=self.day,
-                count=self.count,
+                count=self.entry_count,
                 weekday=self.weekday
         ))
         print('-' * 40)
-        print('총 지출 : {:>{},}원'.format(total, max_length_staticstics))
-        print(' 평  균 : {:>{},}원'.format(average, max_length_staticstics))
+        print('총 지출 : {:>{},}원'.format(self.total_sum, max_length_staticstics))
+        print(' 평  균 : {:>{},}원'.format(self.average, max_length_staticstics))
         print('-' * 40)
 
         for i, record in enumerate(self.data['records']):
-            print(' {line:^{line_length}} |  지 출  : {money:>{length},}원, 사유 : {reason}'.format(
+            print(' {line:^{line_length}} |  금 액  : {money:>{length},}원, 사유 : {reason}'.format(
                     line=i+1,
                     line_length=max_length_line,
                     money=record['money'],
