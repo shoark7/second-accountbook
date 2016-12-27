@@ -77,7 +77,7 @@ class MonthlyAccountBook(BaseAccountBook):
             self.month_total += day_total
         self.month_average = self.month_total // self.day_count
 
-    def month_statistic(self):
+    def statistic_month(self):
         """Get total amount of expenditure and average of daily amount."""
 
         max_length = max_expenditure_length([self.month_total, self.month_average])
@@ -111,7 +111,7 @@ class MonthlyAccountBook(BaseAccountBook):
                 length=max_length)
             )
 
-    def each_day_statistic(self):
+    def statistic_day_all(self):
         """Print all days' statistic data."""
         for data in self.data:
             data.print_daily_expenditure()
