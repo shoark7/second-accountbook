@@ -11,6 +11,12 @@ TODAY = datetime.today()
 YEAR = TODAY.year
 MONTH = TODAY.month
 DAY = TODAY.day
+ALL_MONTH_NAMES = [
+    'January', 'February', 'March',
+    'April', 'May', 'June',
+    'July', 'August', 'September',
+    'October', 'November', 'December',
+]
 
 
 def get_weekday(year=YEAR, month=MONTH, day=DAY):
@@ -19,6 +25,12 @@ def get_weekday(year=YEAR, month=MONTH, day=DAY):
     DATE = date(year, month, day)
 
     return WEEKDAY[DATE.weekday()]
+
+
+def get_month_name(month=MONTH):
+    """Get month's full name in English"""
+
+    return ALL_MONTH_NAMES[month-1]
 
 
 def get_path_day(year, month, day):
