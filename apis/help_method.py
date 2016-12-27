@@ -42,16 +42,16 @@ def get_path_day(year, month, day):
     return path
 
 
-def get_path_month(year, month):
+def get_path_month(year=YEAR, month=MONTH):
     path = os.path.join('./dataset/{year}/{month:02}'.format(
-                year=YEAR,
-                month=MONTH,
+                year=year,
+                month=month,
         ))
     return path
 
 
-def get_path_year(year):
-    path = os.path.join('./dataset/{year}'.format(year=YEAR))
+def get_path_year(year=YEAR):
+    path = os.path.join('./dataset/{year}'.format(year=year))
     return path
 
 
