@@ -73,7 +73,7 @@ class YearlyAccountBook(BaseAccountBook):
             self.year_total += month_data.month_total
         self.year_average = self.year_total // self.day_count
 
-    def year_statistic(self):
+    def statistic_year(self):
         """Simply shows the year's data."""
         max_length = max_expenditure_length([self.year_average, self.year_total])
         max_length_legend = 10
@@ -117,7 +117,7 @@ class YearlyAccountBook(BaseAccountBook):
         )
         print('-' * 60)
 
-    def month_statistic(self):
+    def statistic_month(self):
         """Get this year's statistics of all months."""
         max_length_legend = 10
         max_length = max_expenditure_length([self.year_average, self.year_total])
@@ -156,8 +156,8 @@ class YearlyAccountBook(BaseAccountBook):
         print(average_string)
         print('-' * delimeter_length)
 
-    def each_month_statistic(self):
+    def statistic_month_all(self):
         """Print all days' statistic data."""
         for data in self.data:
-            data.simple_statistic()
+            data.statistic_month()
             print()

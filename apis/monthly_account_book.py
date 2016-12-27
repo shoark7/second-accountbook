@@ -77,7 +77,7 @@ class MonthlyAccountBook(BaseAccountBook):
             self.month_total += day_total
         self.month_average = self.month_total // self.day_count
 
-    def month_statistic(self):
+    def statistic_month(self):
         """Get total amount of expenditure and average of daily amount."""
 
         max_length = max_expenditure_length([self.month_total, self.month_average])
@@ -103,16 +103,16 @@ class MonthlyAccountBook(BaseAccountBook):
                 day=TODAY.day
             ))
             print('-' * 40)
-            print('총 {}일 {}회\n'.format(self.day_count, self.entry_count))
+            print('  총 {}일 {}회\n'.format(self.day_count, self.entry_count))
             print('-' * 40, '\n')
-            print('월 누적 지출금액 : {total:{length},}원\n월 누적 평균금액 : {average:{length},}원'.format(
+            print('  월 누적 지출금액 : {total:{length},}원\n월 누적 평균금액 : {average:{length},}원'.format(
                 total=self.month_total,
                 average=self.month_average,
                 length=max_length)
             )
 
-    def each_day_statistic(self):
+    def statistic_day_all(self):
         """Print all days' statistic data."""
         for data in self.data:
-            data.print_daily_expenditure()
+            data.statistic_day()
             print()

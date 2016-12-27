@@ -103,7 +103,7 @@ class DailyAccountBook(BaseAccountBook):
         self.data['records'] = []
         return None
 
-    def day_statistic(self):
+    def statistic_day(self):
 
         """Shows daily expenditure overview.
 
