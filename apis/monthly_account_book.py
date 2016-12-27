@@ -48,7 +48,7 @@ class MonthlyAccountBook(BaseAccountBook):
 
     def read_data(self):
         """Read data from dataset json files"""
-        self.count = 0
+        self.day_count = 0
         path = get_path_month(self.year, self.month)
         if os.path.exists(path):
             file_name_list = os.listdir(path)
@@ -58,7 +58,7 @@ class MonthlyAccountBook(BaseAccountBook):
                 day_number = int(day_number)
                 day_book = DailyAccountBook(self.year, self.month, day_number)
                 self.data.append(day_book)
-                self.count += 1
+                self.day_count += 1
         else:
             print('해당 연도, 월의 데이터가 없습니다.')
             raise ValueError('Not available data')
@@ -66,22 +66,18 @@ class MonthlyAccountBook(BaseAccountBook):
     def average_data(self):
         """Get month average, total spent amount, total entry count."""
         self.month_total, self.month_average = 0, 0
-        self.month_entry = 0
+        self.entry_count = 0
 
-        if self.count == 0:
+        if self.day_count == 0:
             return
 
         for day_data in self.data:
-            day_total, day_average = day_data.average_data()
-            self.month_entry += day_total // day_average
+            day_total, day_average = day_data.total_sum, day_data.average
+            self.entry_count += day_total // day_average
             self.month_total += day_total
-        self.month_average = self.month_total // self.count
+        self.month_average = self.month_total // self.day_count
 
-    def get_dict(self):
-        """Get dict version for first serialization"""
-        self.data['month'] = self.month
-
-    def simple_statistic(self):
+    def month_statistic(self):
         """Get total amount of expenditure and average of daily amount."""
 
         max_length = max_expenditure_length([self.month_total, self.month_average])
@@ -92,7 +88,7 @@ class MonthlyAccountBook(BaseAccountBook):
                 day=TODAY.day
             ))
             print('-' * 40)
-            print('총 {}일 {}회\n'.format(self.count, self.month_entry))
+            print('총 {}일 {}회\n'.format(self.day_count, self.entry_count))
             print('월 누적 지출금액 : {total:{length},}원\n월 누적 평균금액 : {average:{length},}원'.format(
                 total=self.month_total,
                 average=self.month_average,
@@ -107,7 +103,7 @@ class MonthlyAccountBook(BaseAccountBook):
                 day=TODAY.day
             ))
             print('-' * 40)
-            print('총 {}일 {}회\n'.format(self.count, self.month_entry))
+            print('총 {}일 {}회\n'.format(self.day_count, self.entry_count))
             print('-' * 40, '\n')
             print('월 누적 지출금액 : {total:{length},}원\n월 누적 평균금액 : {average:{length},}원'.format(
                 total=self.month_total,
@@ -115,7 +111,7 @@ class MonthlyAccountBook(BaseAccountBook):
                 length=max_length)
             )
 
-    def print_day_statistics(self):
+    def each_day_statistic(self):
         """Print all days' statistic data."""
         for data in self.data:
             data.print_daily_expenditure()
