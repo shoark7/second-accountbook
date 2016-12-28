@@ -51,7 +51,7 @@ class MonthlyAccountBook(BaseAccountBook):
         self.day_count = 0
         path = get_path_month(self.year, self.month)
         if os.path.exists(path):
-            file_name_list = os.listdir(path)
+            file_name_list = reversed(os.listdir(path))
 
             for file_name in file_name_list:
                 day_number, ext = os.path.splitext(file_name)
