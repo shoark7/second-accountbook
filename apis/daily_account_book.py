@@ -75,6 +75,9 @@ class DailyAccountBook(BaseAccountBook):
 
     def average_data(self):
         """Average data depending on type of the book"""
+
+        if self.entry_count is 0:
+            return
         self.average = 0
         self.total_sum = 0
         for record in self.data['records']:
@@ -114,6 +117,7 @@ class DailyAccountBook(BaseAccountBook):
         if self.entry_count is 0:
             print('이 날은 지출내역이 없습니다.')
             return
+        self.average_data()
 
         money_records = [record['money'] for record in self.data['records']]
         max_length_staticstics = max_expenditure_length([self.total_sum, self.average])
