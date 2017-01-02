@@ -43,7 +43,7 @@ class DailyAccountBook(BaseAccountBook):
         self.average_data()
 
     def __repr__(self):
-        return '{}/{}/{} 지출내역'.format(
+        return '{}/{:02}/{:02} 지출내역'.format(
             self.year, self.month, self.day
         )
 

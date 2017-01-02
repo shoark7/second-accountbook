@@ -42,7 +42,7 @@ class MonthlyAccountBook(BaseAccountBook):
         try:
             return [record for record in self.data if record.day == day][0]
         except:
-            return "{}/:02{}/{:02}의 기록이 존재하지 않습니다.".format(
+            return "{}/{:02}/{:02}의 기록이 존재하지 않습니다.".format(
                 self.year, self.month, day,
             )
 
