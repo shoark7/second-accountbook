@@ -58,7 +58,6 @@ class YearlyAccountBook(BaseAccountBook):
                 self.month_count += 1
         else:
             print('해당 연도의 데이터가 없습니다.')
-            raise ValueError('No available data')
 
     def average_data(self):
         """Get month average, total spent amount, total entry count."""
