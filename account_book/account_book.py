@@ -22,7 +22,7 @@ Its contents would be like this.
 from datetime import datetime
 import os
 from ..apis.yearly_account_book import YearlyAccountBook
-
+from ..apis.help_method import max_expenditure_length
 
 TODAY = datetime.today()
 
@@ -62,5 +62,29 @@ class AccountBook:
     def __repr__(self):
         return "박성환의 {}년간 지출내역서".format(len(self.ledger))
 
+    def average_data(self):
+        """Average all entries and amount of expenditure."""
+        self.total_entry = 0
+        self.total_amount = 0
+
+        for ledger in self.ledger:
+            self.total_entry += ledger.entry_count
+            self.total_amount += ledger.year_total
+        self.total_average = self.total_amount // self.total_entry
+
     def statistic_all(self):
-        pass
+        """Average data and make it print out on stdout."""
+
+        self.average_data()
+        print()
+        print('-' * 40)
+        print("        지난 {}년간 총 사용보고서".format(len(self.ledger)))
+        print('-' * 40)
+
+        stats_length = max_expenditure_length([self.total_amount,
+                                               self.total_entry,
+                                               self.total_average])
+        print("총 기록횟수 : {:{},}번".format(self.total_entry, stats_length))
+        print("총 사용금액 : {:{},}원".format(self.total_amount, stats_length))
+        print("\n총 평균금액 : {:{},}원".format(self.total_average, stats_length))
+        print()
