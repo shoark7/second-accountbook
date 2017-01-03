@@ -38,7 +38,7 @@ class AccountBook:
         """
         Initialize account book with year, month, daily account books.
         """
-        year_data_path = os.path.join('Accountbook/dataset')
+        year_data_path = os.path.join('Accountbook-project/Accountbook/dataset')
         year_list = reversed(os.listdir(year_data_path))
         self.ledger = list()
 
@@ -49,7 +49,7 @@ class AccountBook:
 
     def __getitem__(self, year):
         """
-        Get yearly account book of that year.
+        Get year account book of that year.
         For example, book[3] gets expenditure data of March.
         book[7] gets expenditure data of July.
         """

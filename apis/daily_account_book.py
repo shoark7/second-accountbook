@@ -115,7 +115,7 @@ class DailyAccountBook(BaseAccountBook):
         """
 
         if self.entry_count is 0:
-            print('이 날은 지출내역이 없습니다.')
+            print('이 날은 지출내역이 없습니다.\n\n')
             return
         self.average_data()
 
