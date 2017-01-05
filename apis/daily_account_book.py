@@ -115,7 +115,7 @@ class DailyAccountBook(BaseAccountBook):
         """
 
         if self.entry_count is 0:
-            print('이 날은 지출내역이 없습니다.\n\n')
+            print('\n이 날은 지출내역이 없습니다.\n\n')
             return
         self.average_data()
 
@@ -132,10 +132,10 @@ class DailyAccountBook(BaseAccountBook):
                 count=self.entry_count,
                 weekday=self.weekday
         ))
-        print('-' * 40)
+        print('-' * 50)
         print('총 지출 : {:>{},}원'.format(self.total_sum, max_length_staticstics))
         print(' 평  균 : {:>{},}원'.format(self.average, max_length_staticstics))
-        print('-' * 40)
+        print('-' * 50)
 
         for i, record in enumerate(self.data['records']):
             print(' {line:^{line_length}} |  금 액  : {money:>{length},}원, 사유 : {reason}'.format(
@@ -145,4 +145,6 @@ class DailyAccountBook(BaseAccountBook):
                     length=max_length_entry,
                     reason=record['reason']
             ))
+        print('-' * 50)
+        print()
         print()
