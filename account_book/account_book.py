@@ -79,7 +79,6 @@ class AccountBook:
         """Average data and make it print out on stdout."""
 
         self.average_data()
-        print()
         print('-' * 40)
         print("        지난 {}년간 총 사용보고서".format(len(self.ledger)))
         print('-' * 40)
