@@ -38,7 +38,7 @@ class AccountBook:
         """
         Initialize account book with year, month, daily account books.
         """
-        year_data_path = os.path.join('Accountbook-project/Accountbook/dataset')
+        year_data_path = os.path.join('Accountbook_project/Accountbook/dataset')
         year_list = reversed(os.listdir(year_data_path))
         self.ledger = list()
 
@@ -70,6 +70,9 @@ class AccountBook:
         for ledger in self.ledger:
             self.total_entry += ledger.entry_count
             self.total_amount += ledger.year_total
+
+        if self.total_entry == 0:
+            return
         self.total_average = self.total_amount // self.total_entry
 
     def statistic_all(self):

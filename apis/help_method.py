@@ -34,7 +34,7 @@ def get_month_name(month=MONTH):
 
 
 def get_path_day(year, month, day):
-    path = os.path.join('Accountbook-project/Accountbook/dataset/{year}/{month:02}/{day:02}.json'.format(
+    path = os.path.join('Accountbook_project/Accountbook/dataset/{year}/{month:02}/{day:02}.json'.format(
         year=year,
         month=month,
         day=day)
@@ -43,7 +43,7 @@ def get_path_day(year, month, day):
 
 
 def get_path_month(year=YEAR, month=MONTH):
-    path = os.path.join('Accountbook-project/Accountbook/dataset/{year}/{month:02}'.format(
+    path = os.path.join('Accountbook_project/Accountbook/dataset/{year}/{month:02}'.format(
                 year=year,
                 month=month,
         ))
@@ -51,7 +51,7 @@ def get_path_month(year=YEAR, month=MONTH):
 
 
 def get_path_year(year=YEAR):
-    path = os.path.join('Accountbook-project/Accountbook/dataset/{year}'.format(year=year))
+    path = os.path.join('Accountbook_project/Accountbook/dataset/{year}'.format(year=year))
     return path
 
 
