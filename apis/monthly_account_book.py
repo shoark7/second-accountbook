@@ -42,9 +42,9 @@ class MonthlyAccountBook(BaseAccountBook):
         try:
             return [record for record in self.data if record.day == day][0]
         except:
-            return "{}/{:02}/{:02}의 기록이 존재하지 않습니다.".format(
+            print("{}/{:02}/{:02}의 기록이 존재하지 않습니다.".format(
                 self.year, self.month, day,
-            )
+            ))
 
     def read_data(self):
         """Read data from dataset json files"""
@@ -61,7 +61,6 @@ class MonthlyAccountBook(BaseAccountBook):
                 self.day_count += 1
         else:
             print('해당 연도, 월의 데이터가 없습니다.')
-            raise ValueError('Not available data')
 
     def average_data(self):
         """Get month average, total spent amount, total entry count."""

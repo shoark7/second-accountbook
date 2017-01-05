@@ -40,9 +40,9 @@ class YearlyAccountBook(BaseAccountBook):
         try:
             return [month_data for month_data in self.data if month_data.month == month][0]
         except:
-            return "{}년 {:02}월의 기록이 존재하지 않습니다.".format(
+            print("{}년 {:02}월의 기록이 존재하지 않습니다.".format(
                 self.year, month
-            )
+            ))
 
     def read_data(self):
         """Read data from dataset json files"""
