@@ -5,13 +5,15 @@ from Accountbook import AccountBook, help_method, DailyAccountBook,\
 TODAY = datetime.today()
 
 
-book = AccountBook()
-today_book = DailyAccountBook(TODAY.year, TODAY.month, TODAY.day)
-book_this_year = book[TODAY.year]
-book_this_month = book[TODAY.year][TODAY.month]
 
 
 def app_start():
+
+    book = AccountBook()
+    today_book = DailyAccountBook(TODAY.year, TODAY.month, TODAY.day)
+    book_this_year = book[TODAY.year]
+    book_this_month = book[TODAY.year][TODAY.month]
+
     print('\n', '-' * 50)
     print("반갑습니다. 박성환의 출금내용을 입력하거나 내용을 확인할 수 있습니다.\n\
           간단하지만 연도별, 월별, 일별 통계도 지원하니 꼭 확인해보시길 바랍니다.\n")
@@ -81,7 +83,7 @@ def app_start():
             if wanted_month == '':
                 year = TODAY.year
                 month = TODAY.month
-                wanted_book = MonthlyAccountBook(year, month)
+                wanted_book = book_this_month
 
             else:
                 try:
@@ -112,7 +114,7 @@ def app_start():
 
             if wanted_year == '':
                 year = TODAY.year
-                wanted_book = YearlyAccountBook(year)
+                wanted_book = book_this_year
 
             else:
                 try:
@@ -151,7 +153,8 @@ def app_start():
 
 
         elif user_choice == "5":
-            pass
+            print("전체 통계를 출력합니다.")
+            book.statistic_all()
 
         elif user_choice == '6':
             pass
