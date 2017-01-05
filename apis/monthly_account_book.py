@@ -105,7 +105,7 @@ class MonthlyAccountBook(BaseAccountBook):
             print('-' * 40)
             print('  총 {}일 {}회\n'.format(self.day_count, self.entry_count))
             print('-' * 40, '\n')
-            print('  월 누적 지출금액 : {total:{length},}원\n월 누적 평균금액 : {average:{length},}원'.format(
+            print('월 누적 지출금액 : {total:{length},}원\n월 누적 평균금액 : {average:{length},}원'.format(
                 total=self.month_total,
                 average=self.month_average,
                 length=max_length)
