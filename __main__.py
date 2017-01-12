@@ -1,5 +1,5 @@
 from datetime import datetime
-from Accountbook import AccountBook, DailyAccountBook,\
+from .Accountbook import AccountBook, DailyAccountBook,\
                         MonthlyAccountBook, YearlyAccountBook
 
 TODAY = datetime.today()
